@@ -1,0 +1,220 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <style>
+        .pp {
+            font-size: 50px;
+        }
+        span {
+            font-size: 30px;
+        }
+        #checkbal {
+            display: flex;
+            flex-direction: row;
+        }
+        #checkbal > b {
+            text-align: left;
+        }
+        .butt {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            text-align: center;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 8px;
+            height: auto;
+            padding: 10px;
+        }
+    #tt{
+     display:none;
+    }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="container">
+        <div class="c header">
+            <img src="../assets/asset1.jpg" width="300px">
+            <br>
+            <b id="pp">Welcome, <%= Naam %> </b>
+            <span>Customer ID: <%= cid %></span>
+            <% if (isNewUser) { %>
+            <script>
+                alert('Note your Customer ID for future logins: <%= cid %> !!');
+            </script>
+            <% } %>
+            <button class="profile" style="font-size: xx-large;">
+                <img style="height: 40px; width: 40px" src="../assets/dropdown.svg">
+            </button>
+            <div class="profile_card">
+                <form method="get" action="/profile">
+                    <button type="submit" class="dash">Profile</button>
+                </form>
+                <form method="get" action="/logout">
+                    <button type="submit" class="dash">Log Out</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="c dashboard">
+            <button class="dash" id="transactions">Account-Details</button>
+            <button class="dash" id="withdraw">Withdraw</button>
+            <button class="dash" id="deposit">Deposit</button>
+            <form method="get" action="./trans_history">
+                <button class="dash" id="history" type="submit">Transaction history</button>
+            </form>
+         <form method="get" action="./applyloan">
+            <button class="dash" id="loan">Apply for Loan</button></form>
+            <form method="get" action="./acc_o_o">
+                <button class="dash" id="help">Open Account</button>
+            </form>
+            <form method="get" action="./help">
+                <button class="dash" id="help">Help:</button>
+            </form>
+        </div>
+
+        <div class="c content">
+            <div class="info transactions">
+                <div id="checkbal">
+                    <form id="accountForm">
+                        <label for="accountNumber">Select Account Number:</label>
+                        <select id="accountNumber" name="accountNumber" required>
+                            <option value="">--Select Account--</option>
+                            <!-- Always show 'No accounts available' -->
+                            <option value="" disabled>No accounts available</option>
+                        </select>
+
+                    </form>
+                </div>
+
+                <div id="accountData  tt">
+                    <div id="checkbal">
+
+
+                    </div>
+                    <div id="checkbal">
+                        <b>Account Type:</b>
+                        <input class="styled" id="accountType" type="text" readonly>
+                    </div>
+                    <div id="checkbal">
+                        <b>Date of Creation:</b>
+                        <input class="styled" id="createdDate" type="text" readonly>
+                    </div>
+                    <div id="checkbal">
+                        <b>Branch Name:</b>
+                        <input class="styled" id="branchName" type="text" readonly>
+                    </div>
+                    <div id="checkbal">
+                        <b>Balance:</b>
+                        <input class="styled" id="balance" type="text" readonly style="display: none;">
+                    </div>
+                </div>
+
+                <div id="checkbal">
+                    <input type="button" id="checkBalanceBtn" class="butt" value="Check Balance">
+                </div>
+            </div>
+
+            <div class="info withdraw">
+                <form action="./with_draw" method="post">
+                     <select id="accountNo" name="acc_no" required>
+                         <option value="">--Select Account--</option>
+                         <option value="" disabled>No accounts available</option>
+                     </select>
+
+                  <input class="styled" type="password" name="password" placeholder="Enter password " required>
+
+                    <input class="styled" type="text" name="amount" placeholder="Enter amount to be withdrawn" required>
+                    <button type="submit" class="butt">Confirm</button>
+                </form>
+            </div>
+
+            <div class="info deposit">
+                <form action="./deposit" method="post">
+ <select id="accountNo" name="acc_no" required>
+     <option value="">--Select Account--</option>
+     <!-- Always show 'No accounts available' -->
+     <option value="" disabled>No accounts available</option>
+ </select>
+                <input class="styled" type="password" name="password" placeholder="Enter password" required>
+                    <input class="styled" type="number" name="amount" placeholder="Enter amount" required>
+                    <button class="butt" type="submit">Confirm</button>
+                </form>
+            </div>
+
+
+
+            <div class="info help"></div>
+        </div>
+
+        <footer class="c foot">
+            Contact Us at: <br>
+            nbmindia.contact@gmail.com
+            😘
+        </footer>
+    </div>
+</div>
+<script>
+   function fetchAccountDetails(accountNumber) {
+       $.ajax({
+                 url: '/get_bal',
+                 type: 'POST',
+                 data: {
+
+                 account_no: accountNumber
+
+
+                 },
+                   success: function(response) {
+               if (response.success) {
+                   const accountData = response.data;
+
+                   document.getElementById('accountNo').value = accountData.Account_no;
+                   document.getElementById('accountType').value = accountData.Account_type;
+                   document.getElementById('createdDate').value = accountData.created_at.substring(0, 10);
+                   document.getElementById('branchName').value = accountData.Branch_id;
+                   document.getElementById('balance').value = accountData.Balance;
+               } else {
+                   alert(response.message);
+               }
+           },
+           error: function(xhr, status, error) {
+               console.error('Error fetching account details:', error);
+               alert('Failed to fetch account details. Please try again.');
+           }
+       });
+
+   }
+
+   document.getElementById('accountNumber').addEventListener('change', function() {
+       const selectedAccount = this.value;
+
+       if (selectedAccount) {
+           fetchAccountDetails(selectedAccount);
+       }
+   });
+
+   document.getElementById('checkBalanceBtn').addEventListener('click', function() {
+       const balanceField = document.getElementById('balance');
+
+       if (balanceField.style.display === 'none' || balanceField.style.display === '') {
+           balanceField.style.display = 'block';
+       } else {
+           balanceField.style.display = 'none';
+       }
+   });
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="../index.js" charset="UTF-8"></script>
+</body>
+</html>

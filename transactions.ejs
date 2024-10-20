@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #000428;
+            color: #fff;
+        }
+
+        /* Light mode styles */
+        body.light-mode {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            margin: 50px auto;
+            width: 80%;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode .container {
+            background-color: #333;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        body.dark-mode h2 {
+            color: #fff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        body.dark-mode th {
+            background-color: #555;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        body.dark-mode tr:nth-child(even) {
+            background-color: #444;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        body.dark-mode tr:hover {
+            background-color: #555;
+        }
+
+        .mode-switch {
+            position: fixed;
+            top: 10px;
+            right: 100px;
+            background-color: #1976d2;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 15px;
+            font-size: 14px;
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+
+        .mode-switch:hover {
+            transform: scale(2.5);
+            background-color: red;
+            color: black;
+        }
+    </style>
+</head>
+<body class="light-mode">
+<div class="container">
+    <h2>Transaction History</h2>
+    <table id="transactionTable">
+        <thead>
+        <tr>
+            <th>Transaction ID</th>
+            <th>Account NO</th>
+            <th>Amount</th>
+            <th>Transaction Type</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% transactions.forEach(function(transaction) { %>
+        <tr>
+            <td><%= transaction.id %></td>
+            <td><%= transaction.Account_no %></td>
+            <td><%= transaction.amount %></td>
+            <td><%= transaction.transaction_type %></td>
+            <td><%= String(transaction.created_at).substring(0, 10) %></td>
+            <td><%= String(transaction.created_at).substring(15, 25) %></td>
+            <td><%= transaction.status %></td>
+        </tr>
+        <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<button class="mode-switch" id="theme-toggle">Toggle Dark/Light Mode</button>
+
+<script>
+    const themeToggleButton = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    const savedTheme = localStorage.getItem('theme') || 'light-mode';
+    body.className = savedTheme;
+
+    themeToggleButton.textContent = body.classList.contains('dark-mode') ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+
+    themeToggleButton.addEventListener('click', () => {
+        if (body.classList.contains('dark-mode')) {
+            body.classList.replace('dark-mode', 'light-mode');
+            themeToggleButton.textContent = 'Switch to Dark Mode';
+            localStorage.setItem('theme', 'light-mode');
+        } else {
+            body.classList.replace('light-mode', 'dark-mode');
+            themeToggleButton.textContent = 'Switch to Light Mode';
+            localStorage.setItem('theme', 'dark-mode');
+        }
+    });
+</script>
+</body>
+</html>

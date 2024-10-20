@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Theme Toggle Styles */
+        .theme-toggle-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .theme-toggle {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .theme-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .6s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Light Theme */
+        .light {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .light .container {
+            background: #ffffff;
+        }
+        .container {
+            background: #1e2a38;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            text-align: center;
+            color: #ffcc00;
+        }
+
+        .transaction-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #ff7300, #ffa64d);
+            border: 2px solid #333;
+            margin-bottom: 10px;
+            border-radius: 6px;
+        }
+
+        .transaction-row:nth-child(odd) {
+            background-color: #293548;
+        }
+
+        .transaction-info {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            width: 80%;
+        }
+
+        .transaction-info div {
+            flex: 1;
+            padding: 5px 10px;
+            text-align: left;
+        }
+
+        .transaction-info div span {
+            font-weight: bold;
+            display: block;
+            color: #ffcc00;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            width: 20%;
+        }
+
+        .action-buttons button {
+            background-color: #008cba;
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-right: 10px;
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease;
+        }
+
+        .action-buttons button:hover {
+            background-color: #005f73;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .transaction-info {
+                flex-direction: column;
+            }
+
+            .action-buttons {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+        /* Dark Theme */
+        .dark {
+            background-color: #0a0b1a;
+            color: #f4f4f4;
+        }
+
+        .dark .container {
+            background: #1e2a38;
+        }
+
+        /* Add the previous CSS styles here */
+        /* Include the theme toggle CSS and theme styles */
+    </style>
+</head>
+<body class="light"> <!-- Start with the light theme -->
+
+<div class="theme-toggle-container">
+    <label class="theme-toggle">
+        <input type="checkbox" id="theme-toggle">
+        <span class="slider"></span>
+    </label>
+    <span class="toggle-label">Toggle Theme</span>
+</div>
+
+<div class="container">
+    <h2>Transaction History</h2>
+    <% transactions.forEach(function(transaction) { %>
+    <div class="transaction-row">
+        <div class="transaction-info">
+            <div>
+                <span>Transaction ID:</span> <%= transaction.id %>
+            </div>
+            <div>
+                <span>Customer ID:</span> <%= transaction.customer_id %>
+            </div>
+            <div>
+                <span>Account Number:</span> <%= transaction.Account_no %>
+            </div>
+            <div>
+                <span>Amount:</span> <%= transaction.amount %>
+            </div>
+            <div>
+                <span>Date:</span> <%= String(transaction.created_at).substring(0, 10) %>
+            </div>
+            <div>
+                <span>Time:</span> <%= String(transaction.created_at).substring(15, 25) %>
+            </div>
+            <div>
+                <span>Status:</span> <%= transaction.status %>
+            </div>
+        </div>
+
+    </div>
+    <% }); %>
+</div>
+
+<script>
+    const themeToggle = document.getElementById('theme-toggle');
+
+    themeToggle.addEventListener('change', function() {
+        if (this.checked) {
+            document.body.classList.add('dark');
+            document.body.classList.remove('light');
+        } else {
+            document.body.classList.add('light');
+            document.body.classList.remove('dark');
+        }
+    });
+</script>
+</body>
+</html>

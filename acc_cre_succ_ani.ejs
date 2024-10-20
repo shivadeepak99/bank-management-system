@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>account application submitted </title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .firecracker {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%;
+            animation: firecrackerBlast 0.5s forwards;
+        }
+
+        @keyframes firecrackerBlast {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+
+        .emitter {
+            position: fixed;
+            top: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: rgba(0, 123, 255, 0.6);
+            border-radius: 50%;
+            animation: emit 4s infinite ease-in-out;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .emitter.top-right {
+            right: 20px;
+        }
+
+        .emitter.top-left {
+            left: 20px;
+        }
+
+        .emitter:nth-child(1) {
+            animation-delay: 0s;
+        }
+        .emitter:nth-child(2) {
+            animation-delay: 1s;
+        }
+        .emitter:nth-child(3) {
+            animation-delay: 2s;
+        }
+        .emitter:nth-child(4) {
+            animation-delay: 3s;
+        }
+
+        @keyframes emit {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(10);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🎉 Application Submitted Successfully!! 🎉</h1>
+    <b> expected response in 2 days🤞<b/>
+    <div id="firecracker-container"></div>
+    <div class="emitter top-left"></div>
+    <div class="emitter top-right"></div>
+    <div class="emitter top-left"></div>
+    <div class="emitter top-right"></div>
+    <form method="get" action="/">
+    <button  type="submit">Go Back</button></form>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+
+
+
+    function createFirecracker() {
+        const container = document.getElementById('firecracker-container');
+        const firecracker = document.createElement('div');
+        firecracker.className = 'firecracker';
+
+
+        firecracker.style.left = Math.random() * 100 + 'vw';
+        firecracker.style.bottom = Math.random() * 100 + 'vh';
+
+        container.appendChild(firecracker);
+
+
+        firecracker.addEventListener('animationend', () => {
+            firecracker.remove();
+        });
+    }
+
+
+    for (let i = 0; i < 20; i++) {
+        setTimeout(createFirecracker, i * 200);
+    }
+</script>
+</body>
+</html>

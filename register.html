@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <link rel="stylesheet" href="dbmscss.css">
+
+    <style>
+        :root {
+            --light-bg: white;
+            --dark-bg: #000000;
+            --light-text: #000000;
+            --dark-text: #ffffff;
+            --input-bg-light: #f0f0f0;
+            --input-bg-dark: #333;
+            --btn-gradient-light: linear-gradient(45deg, red, green);
+            --btn-gradient-dark: linear-gradient(45deg, white, black);
+        }
+
+        body {
+            background-color: var(--light-bg);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            color: var(--light-text);
+            transition: all 0.3s ease;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        #d1 {
+            background-color: var(--light-bg);
+            color: var(--light-text);
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        #d2 {
+            background: linear-gradient(135deg, #6f86d6, #48c6ef);
+            width: 100%;
+            max-width: 600px;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            animation: fade-in 0.8s ease-in-out;
+            opacity: 0.9;
+            transition: opacity 0.3s ease, background 0.3s ease;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            color: var(--light-text);
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background-color: var(--input-bg-light);
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            background-color: #f4f4f4;
+            outline: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="submit"] {
+            background: var(--btn-gradient-light);
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 14px;
+            border-radius: 12px;
+            transition: background-color 0.4s ease, transform 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            transform: translateY(-10px);
+        }
+
+        #toggle-theme {
+            margin: 20px;
+            padding: 10px 20px;
+            background: var(--btn-gradient-light);
+            color: white; /* Ensures the text is visible in light mode */
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.4s ease;
+        }
+
+        #toggle-theme:hover {
+            background: var(--btn-gradient-dark);
+        }
+
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: black;
+            color: orange;
+        }
+
+        body.dark-mode #d1 {
+            background-color: var(--dark-bg);
+            color: whitesmoke;
+        }
+
+        body.dark-mode input {
+            background-color: var(--input-bg-dark);
+            color: ghostwhite;
+        }
+
+        body.dark-mode input[type="submit"],
+        body.dark-mode #toggle-theme {
+            background: var(--btn-gradient-dark);
+        }
+
+        input[type="submit"]:hover,
+        #toggle-theme:hover {
+            background: var(--btn-gradient-light);
+        }
+    </style>
+</head>
+
+<body>
+
+<div style="display: flex; justify-content: center; margin-bottom: 20px;">
+    <button id="toggle-theme">Toggle Dark Mode</button>
+</div>
+
+<div id="d1">
+    <div id="d2">
+        <h2><b>Sign up page</b></h2>
+        <form id="myForm" action="/register" method="post">
+            <label for="firstName" >Name:</label>
+            <input type="text" id="firstName" name="Name" required>
+
+            <label for="email">Email-Id:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="dateofbirth">Date of Birth:</label>
+            <input type="date" id="dateofbirth" name="dateofbirth" required>
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" required>
+
+            <label for="phoneNumberRegister">Phone Number:</label>
+            <input type="tel" id="phoneNumberRegister" name="phoneNumberRegister" required>
+
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" required>
+
+            <label for="state">State:</label>
+            <input type="text" id="state" name="state" required>
+
+            <label for="pincode">Pincode:</label>
+            <input type="number" id="pincode" name="pincode" required>
+
+            <label for="registerPassword">Password:</label>
+            <input type="password" id="registerPassword" name="registerPassword" required>
+
+            <input type="submit" value="Register">
+        </form>
+    </div>
+</div>
+
+<script>
+    const toggleBtn = document.getElementById('toggle-theme');
+    toggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+    });
+</script>
+
+</body>
+
+</html>

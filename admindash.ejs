@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+
+        body.dark-mode {
+            background: linear-gradient(120deg, #000428, #004e92);
+            color: #fff;
+        }
+
+
+        body.light-mode {
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+
+        header {
+            background: black;
+            color: hotpink;
+            text-align: center;
+            padding: 1em 0;
+            font-size: 28px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            animation: slideInDown 1s ease-out;
+        }
+
+        body.light-mode header {
+            background: #f4f4f9;
+            color: #333;
+        }
+
+
+.mode-switch {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: #1976d2;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 15px;
+    font-size: 12px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    z-index: 1000;
+}
+
+.mode-switch:hover {
+    transform: scale(3);
+    background-color: white;
+    color: black;
+}
+
+
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            background-color: #222;
+            text-align: center;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        body.light-mode nav ul {
+            background-color: #f4f4f9;
+        }
+
+        nav ul li {
+            display: inline-block;
+            margin-right: 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #333;
+            border-radius: 30px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        body.light-mode nav ul li a {
+            background-color: #ddd;
+            color: #333;
+        }
+
+        nav ul li a:hover {
+            background-color: #d32f2f;
+            transform: scale(1.1);
+        }
+
+
+        .section-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            padding: 20px;
+            margin: 40px;
+        }
+
+
+        section {
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            width: 30%;
+            text-align: center;
+            animation: fadeInUp 1.2s ease-out;
+            transition: background-color 0.5s, box-shadow 0.5s;
+        }
+
+        body.light-mode section {
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+
+        h2 {
+            font-size: 26px;
+            color: #ffeb3b;
+            text-align: center;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        body.light-mode h2 {
+            color: #333;
+        }
+
+
+        button {
+            background: linear-gradient(90deg, #1976d2, #0d47a1);
+            color: white;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 50px;
+            width: 100%;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        body.light-mode button {
+            background: linear-gradient(90deg, #ddd, #bbb);
+            color: #333;
+        }
+
+        button:hover {
+            background: linear-gradient(90deg, #0d47a1, #1976d2);
+            transform: translateY(-5px);
+        }
+
+        body.light-mode button:hover {
+            background: linear-gradient(90deg, #bbb, #999);
+        }
+
+
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+    </style>
+</head>
+<body class="dark-mode">
+<header>
+    <h1>Admin Dashboard - National Bank of India</h1>
+</header>
+
+
+<button class="mode-switch" onclick="toggleMode()">Switch to Light Mode</button>
+
+<nav>
+
+    <ul>
+        <li><a href="#customers">Manage Customers</a></li>
+        <li><a href="#transactions">View Transactions</a></li>
+        <li><a href="#loans">Loan Applications</a></li>
+        <li><a href="#reports">Generate Reports</a></li>
+
+ <li><form method="get" action="/admlogout" > <button type='submit' >LOGOUT</button></form></li>
+    </ul>
+</nav>
+
+<div class="section-container">
+    <section id="customers">
+        <h2>Manage Customers</h2>
+        <form action="/viewusers" method="get">
+            <button type="submit" id="viewUsersBtn">View All Users</button>
+        </form>
+        <form action="/approveorreject" method="get">
+            <button id="approveRejectBtn">Approve/Reject New Accounts</button>
+        </form>
+        <form action="/deactivateaccount" method="get">
+            <button id="deactivateAccountBtn">Deactivate Account</button>
+        </form>
+    </section>
+
+    <section id="transactions">
+        <h2>View Transactions</h2>
+        <form action="/viewtrans" method="get">
+            <button id="viewTransactionsBtn">View All Transactions</button>
+        </form>
+        <form action="/toreverseviewtrans" method="get">
+            <button id="reverseTransactionBtn">Reverse Transaction</button>
+        </form>
+    </section>
+
+    <section id="loans">
+        <h2>Loan Applications</h2>
+        <form action="/viewloans" method="get">
+            <button id="reviewLoansBtn">Review Loan Applications</button>
+        </form>
+        <form action="/viewactiveloans" method="get">
+            <button id="viewActiveLoansBtn">View Active Loans</button>
+        </form>
+        <form action="/approve-loans" method="get">
+            <button id="approveRejectLoanBtn">Pending Loans</button>
+        </form>
+    </section>
+</div>
+
+<script>
+    function toggleMode() {
+        const body = document.body;
+        const modeSwitch = document.querySelector('.mode-switch');
+
+        if (body.classList.contains('dark-mode')) {
+            body.classList.replace('dark-mode', 'light-mode');
+            modeSwitch.textContent = 'Switch to Dark Mode';
+        } else {
+            body.classList.replace('light-mode', 'dark-mode');
+            modeSwitch.textContent = 'Switch to Light Mode';
+        }
+    }
+</script>
+
+</body>
+</html>

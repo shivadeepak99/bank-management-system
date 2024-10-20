@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pending Account Deactivation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            background: wheat;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #3366cc;
+        }
+        .account-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #00CFFB, skyblue);
+            border: 2px solid #dcdcdc;
+            margin-bottom: 10px;
+            border-radius: 6px;
+        }
+        .account-row:nth-child(odd) {
+            background-color: #e6f7ff;
+        }
+        .account-row div {
+            margin: 0 15px;
+        }
+        .account-info {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            width: 80%;
+        }
+        .account-info div {
+            flex: 1;
+            padding: 5px 10px;
+            text-align: left;
+        }
+        .account-info div span {
+            font-weight: bold;
+            display: block;
+            color: black;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            width: 20%;
+        }
+        .action-buttons button {
+            background-color: #d9534f;
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-right: 10px;
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease;
+        }
+        .action-buttons button:hover {
+            background-color: #c9302c;
+            transform: scale(1.05);
+        }
+        @media (max-width: 768px) {
+            .account-info {
+                flex-direction: column;
+            }
+            .action-buttons {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Deactivate</h1>
+    <% accounts.forEach(function(account) { %>
+    <div class="account-row">
+        <div class="account-info">
+            <div>
+                <span>Account Number:</span> <%= account.Account_no %>
+            </div>
+            <div>
+                <span>Account Type:</span> <%= account.Account_type %>
+            </div>
+            <div>
+                <span>Customer ID:</span> <%= account.customer_id %>
+            </div>
+            <div>
+                <span>Created At:</span> <%= account.created_at %>
+            </div>
+        </div>
+        <div class="action-buttons">
+            <form action="/deactivateaccount" method="POST" style="display: inline;">
+                <input type="hidden" name="Account_no" value="<%= account.Account_no %>">
+                <button type="submit" class="deactivate">Deactivate</button>
+            </form>
+        </div>
+    </div>
+    <% }); %>
+</div>
+
+</body>
+</html>

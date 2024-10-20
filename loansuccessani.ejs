@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta http-equiv="refresh" content="3;url=/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Application Success</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #001f3f;
+            color: #ffdc00;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #message {
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #2ecc40;
+            color: white;
+            font-size: 24px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .firework {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #ffdc00;
+            opacity: 0;
+            animation: explode 1s forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-100px) scale(3);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-200px) scale(0);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="message" role="alert">Loading...</div>
+    <script>
+        function showSuccessMessage(loanId) {
+            const messageDiv = document.getElementById("message");
+            messageDiv.textContent = `🎉 Loan application submitted successfully! Loan ID: ${loanId} 🎉`; // Corrected string interpolation
+
+            // Create firework effect
+            for (let i = 0; i < 30; i++) { // Increase number of fireworks for more coverage
+                createFirework();
+            }
+        }
+
+        function createFirework() {
+            const firework = document.createElement("div");
+            firework.classList.add("firework");
+            firework.style.left = `${Math.random() * 100}vw`; // Random horizontal position
+            firework.style.top = `${Math.random() * 100}vh`; // Random vertical position
+            firework.style.animationDelay = `${Math.random() * 2}s`; // Random delay for staggered effect
+
+            document.body.appendChild(firework);
+
+            // Remove firework after animation
+            firework.addEventListener("animationend", () => {
+                firework.remove();
+            });
+        }
+
+        // Call the function to display the message with a dynamic loan ID
+        showSuccessMessage(<%= loanid %>); // Replace with the actual loan ID from your backend
+    </script>
+</body>
+</html>

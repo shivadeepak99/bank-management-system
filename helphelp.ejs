@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Management Help Section</title>
+  <style>
+  body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      transition: background-color 0.5s ease, color 0.5s ease;
+  }
+
+  body.dark-mode {
+      background: linear-gradient(120deg, #000428, #004e92);
+      color: #fff;
+  }
+
+  body.light-mode {
+      background: linear-gradient(120deg, #fffcf9, #f7e7ce);
+      color: #000;
+  }
+
+  .mode-switch {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background-color: #1976d2;
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      cursor: pointer;
+      border-radius: 50px;
+      font-size: 14px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      z-index: 1000;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .mode-switch:hover {
+      transform: scale(1.2);
+      background-color: white;
+      color: #1976d2;
+  }
+
+  header {
+      background: black;
+      color: hotpink;
+      text-align: center;
+      padding: 1em 0;
+      font-size: 28px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      position: relative;
+      animation: glow 2s infinite alternate;
+  }
+
+  @keyframes glow {
+      from {
+          text-shadow: 0 0 10px hotpink, 0 0 20px hotpink, 0 0 30px hotpink;
+      }
+      to {
+          text-shadow: 0 0 20px #ff69b4, 0 0 40px #ff69b4, 0 0 60px #ff69b4;
+      }
+  }
+
+  .section-container {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-start;
+      padding: 20px;
+      margin: 40px;
+      animation: slideIn 1.5s ease-in-out;
+  }
+
+  @keyframes slideIn {
+      from {
+          opacity: 0;
+          transform: translateX(-100px);
+      }
+      to {
+          opacity: 1;
+          transform: translateX(0);
+      }
+  }
+
+  section {
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      padding: 20px;
+      width: 30%;
+      text-align: center;
+      animation: bounceIn 1.8s ease-in-out;
+  }
+
+  @keyframes bounceIn {
+      0% {
+          transform: scale(0.5);
+          opacity: 0;
+      }
+      60% {
+          transform: scale(1.1);
+      }
+      100% {
+          transform: scale(1);
+          opacity: 1;
+      }
+  }
+
+  h2 {
+      font-size: 26px;
+      color: #ffeb3b;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      position: relative;
+      animation: flicker 3s infinite alternate;
+  }
+
+  @keyframes flicker {
+      0%, 22%, 36%, 75% {
+          text-shadow: 0 0 4px #ffeb3b, 0 0 8px #ffeb3b, 0 0 12px #ffeb3b;
+      }
+      28%, 44%, 83% {
+          text-shadow: none;
+      }
+  }
+
+  button {
+      background: linear-gradient(90deg, #1976d2, #0d47a1);
+      color: white;
+      border: none;
+      padding: 15px;
+      cursor: pointer;
+      font-size: 18px;
+      border-radius: 50px;
+      width: 100%;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, background 0.3s ease;
+  }
+
+  button:hover {
+      background: linear-gradient(90deg, #0d47a1, #1976d2);
+      transform: translateY(-5px) rotate(5deg);
+      animation: jiggle 0.5s;
+  }
+
+  @keyframes jiggle {
+      0%, 100% {
+          transform: rotate(-5deg);
+      }
+      50% {
+          transform: rotate(5deg);
+      }
+  }
+
+  #results {
+      background-color: #333;
+      padding: 20px;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 14px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      animation: fadeIn 1s ease-out;
+  }
+
+  @keyframes fadeIn {
+      from {
+          opacity: 0;
+      }
+      to {
+          opacity: 1;
+      }
+  }
+  </style>
+</head>
+<body>
+<h1>Help Section</h1>
+
+<div class="toggle-container">
+    <button class="toggle-button" onclick="toggleDarkMode()">Toggle Dark Mode / Light Mode</button>
+</div>
+
+<div class="section" id="account-management">
+    <h2>Account Management</h2>
+    <ul>
+        <li><strong>Creating an Account:</strong> To create an account, click the "Create Account" button and fill in your details like name, type (Personal/Business), and contact information.</li>
+        <li><strong>Viewing Balance:</strong> You can view your balance by logging in with your credentials. Go to the "Account" section and select your account.</li>
+        <li><strong>Updating Account Information:</strong> To update your personal details, go to the "Profile" section and update your phone number or email address.</li>
+    </ul>
+</div>
+
+<div class="section" id="loans">
+    <h2>Loans</h2>
+    <ul>
+        <li><strong>Applying for a Loan:</strong> To apply for a loan, navigate to the "Loan Application" page, fill out the form, and submit. Ensure that all required fields are filled.</li>
+        <li><strong>Loan Types:</strong> We offer personal and business loans. Personal loans are available for individuals, and business loans for businesses.</li>
+        <li><strong>Repayment Details:</strong> Use the loan calculator to check EMI and repayment schedules. Repayment can be done through your account or scheduled auto-debit.</li>
+        <li><strong>EMI Calculator:</strong> Select a loan amount from the dropdown and the tenure will be calculated dynamically. This helps in choosing the best plan for you.</li>
+    </ul>
+</div>
+
+<div class="section" id="transactions">
+    <h2>Transactions</h2>
+    <ul>
+        <li><strong>Depositing Funds:</strong> To deposit funds, go to the "Deposit" page, enter the amount, and complete the transaction.</li>
+        <li><strong>Withdrawing Funds:</strong> Go to the "Withdraw" section, enter the withdrawal amount, and complete the process. Make sure you have sufficient balance.</li>
+        <li><strong>Viewing Transaction History:</strong> Visit the "Transaction History" section to see all transactions. You can filter by date or transaction type.</li>
+    </ul>
+</div>
+
+<div class="section" id="support">
+    <h2>Support</h2>
+    <ul>
+        <li><strong>Contacting Customer Support:</strong> If you have any issues, please contact us at <a href="mailto:support@bank.com">support@bank.com</a>.</li>
+        <li><strong>FAQs:</strong> Check our <a href="#faqs">FAQs</a> for common questions like password reset, incorrect balance, etc.</li>
+        <li><strong>Troubleshooting:</strong> For login issues or other technical problems, follow the troubleshooting guide in our FAQs.</li>
+    </ul>
+</div>
+
+
+
+<script>
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+    }
+</script>
+</body>
+</html>

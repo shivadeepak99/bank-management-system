@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Account Creation Form</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        /* Dark and Light Theme */
+        body.dark-mode {
+            background: linear-gradient(135deg, #000428, #004e92);
+            color: #fff;
+        }
+
+        body.light-mode {
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            color: #333;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 20px;
+            font-size: 14px;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+      .theme-toggle:hover {
+          transform: scale(2);
+          background: linear-gradient(45deg, #ff6f61, #4caf50);
+          color: #ffffff;
+          transition: transform 0.2s ease-in-out, background 0.3s ease-in-out;
+      }
+
+
+        .form-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            max-width: 900px;
+            width: 100%;
+            animation: fadeIn 1s ease-in-out;
+            margin-bottom: 50px;
+        }
+
+        body.dark-mode .form-container {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            color: #007BFF;
+            margin-bottom: 30px;
+            animation: textGlow 1.5s ease-in-out infinite;
+        }
+
+        body.dark-mode h1 {
+            color: #ffd700;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 10px rgba(118, 75, 162, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(118, 75, 162, 1); }
+            100% { text-shadow: 0 0 10px rgba(118, 75, 162, 0.5); }
+        }
+
+        .section-title {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        body.dark-mode .section-title {
+            background-color: #ff5722;
+        }
+
+        .form-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        label {
+            flex: 0 0 48%;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input[type="text"], input[type="email"], input[type="number"], input[type="date"], input[type="password"], select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode input,
+        body.dark-mode select,
+        body.dark-mode textarea {
+            background-color: #333;
+            color: white;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .full-width {
+            flex: 0 0 100%;
+        }
+
+        .half-width {
+            flex: 0 0 48%;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        body.dark-mode button {
+            background-color: #ff5722;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
+</head>
+<body class="light-mode">
+    <button class="theme-toggle" onclick="toggleTheme()">switch theme</button>
+    <div class="form-container">
+        <h1>Bank Account Creation Form</h1>
+        <form action="/acc_o_o" method="POST">
+            <!-- Account Details -->
+            <div class="section-title">Account Details</div>
+            <div class="form-group">
+                <label for="bank-id" class="half-width">Bank</label>
+                <select id="bank-id" name="bank_id" required class="half-width">
+                    <option value="">-- Select Bank --</option>
+                    <option value="1">State Bank of India</option>
+                    <option value="2">HDFC Bank</option>
+                    <option value="3">ICICI Bank</option>
+                    <option value="4">Axis Bank</option>
+                    <option value="5">Bank of Baroda</option>
+                </select>
+
+                <label for="branch-id" class="half-width">Branch</label>
+                <select id="branch-id" name="branch_id" required class="half-width">
+                    <option value="">-- Select Branch --</option>
+                </select>
+
+                <label for="account_type" class="half-width">Account Type</label>
+                <select id="type_id" name="account_type" required class="half-width">
+                    <option value="Personal Account">Personal Account</option>
+                    <option value="Business Account">Business Account</option>
+                </select>
+
+                <label for="balance" class="half-width">Initial Balance</label>
+                <input type="number" id="balance" name="balance" placeholder="Enter balance" required class="half-width" min="0" step="0.01">
+            </div>
+
+            <!-- Customer Details -->
+            <div class="section-title">Customer Details</div>
+            <div class="form-group">
+                <label for="customer-id" class="half-width">Customer ID</label>
+                <input type="text" id="customer-id" name="customer_id" value="<%= customerId %>" required class="half-width" readonly>
+
+                <label for="name" class="half-width">Full Name</label>
+                <input type="text" id="name" name="name" value="<%= pname %>" required class="half-width" readonly>
+
+                <label for="phone" class="half-width">Phone Number</label>
+                <input type="text" id="phone" name="phone_number" value="<%= pphno %>" required class="half-width" readonly>
+
+                <label for="email" class="half-width">Email</label>
+                <input type="email" id="email" name="email" value="<%= pemail %>" required class="half-width" readonly>
+
+                <label for="dob" class="half-width">Date of Birth</label>
+                <input type="text" id="dob" name="dateofbirth" value="<%= pdob %>" required class="half-width" readonly>
+
+                <label for="address" class="full-width">Address</label>
+                <textarea id="address" name="address" rows="3" required class="full-width" readonly><%= padr %></textarea>
+
+                <label for="city" class="half-width">City</label>
+                <input type="text" id="city" name="city" value="<%= pcity %>" required class="half-width" readonly>
+
+                <label for="state" class="half-width">State</label>
+                <input type="text" id="state" name="state" value="<%= pstate %>" required class="half-width" readonly>
+
+                <label for="pincode" class="half-width">Pin Code</label>
+                <input type="text" id="pincode" name="pincode" value="<%= pincode %>" required class="half-width" readonly>
+            </div>
+
+            <div class="btn-container">
+                <button type="submit">Create Account</button>
+            </div>
+        </form>
+    </div>
+
+ <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            document.body.classList.toggle('light-mode');
+        }
+
+        const branchesByBank = {
+            1: [
+                { id: 101, name: 'Mumbai Main Branch' },
+                { id: 102, name: 'Delhi Branch' },
+                { id: 103, name: 'Bangalore Branch' }
+            ],
+            2: [
+                { id: 201, name: 'Delhi Main Branch' },
+                { id: 202, name: 'Mumbai Branch' },
+                { id: 203, name: 'Chennai Branch' }
+            ],
+            3: [
+                { id: 301, name: 'Santacruz Main Branch' },
+                { id: 302, name: 'Kolkata Branch' },
+                { id: 303, name: 'Hyderabad Branch' }
+            ],
+            4: [
+                { id: 401, name: 'Kolkata Main Branch' },
+                { id: 402, name: 'Pune Branch' },
+                { id: 403, name: 'Chennai Branch' }
+            ],
+            5: [
+                { id: 501, name: 'Vadodara Main Branch' },
+                { id: 502, name: 'Ahmedabad Branch' },
+                { id: 503, name: 'Jaipur Branch' }
+            ]
+        };
+
+        const bankSelect = document.getElementById('bank-id');
+        const branchSelect = document.getElementById('branch-id');
+
+        bankSelect.addEventListener('change', function() {
+            const selectedBankId = this.value;
+            const branches = branchesByBank[selectedBankId];
+
+            branchSelect.innerHTML = '<option value="">-- Select Branch --</option>';
+
+            if (branches) {
+                branches.forEach(branch => {
+                    const option = document.createElement('option');
+                    option.value = branch.id;
+                    option.textContent = branch.name;
+                    branchSelect.appendChild(option);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

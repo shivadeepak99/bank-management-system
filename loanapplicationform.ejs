@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Application Form</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        /* Dark and Light Theme */
+        body.dark-mode {
+            background: linear-gradient(135deg, #000428, #004e92);
+            color: #fff;
+        }
+
+        body.light-mode {
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            color: #333;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 20px;
+            font-size: 14px;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.2);
+            background-color: #fff;
+            color: #4caf50;
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            max-width: 600px;
+            width: 100%;
+            animation: fadeIn 1s ease-in-out;
+            margin-bottom: 50px;
+        }
+
+        body.dark-mode .form-container {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 32px;
+            color: #764ba2;
+            margin-bottom: 30px;
+            animation: textGlow 1.5s ease-in-out infinite;
+        }
+
+        body.dark-mode h2 {
+            color: #ffd700;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 10px rgba(118, 75, 162, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(118, 75, 162, 1); }
+            100% { text-shadow: 0 0 10px rgba(118, 75, 162, 0.5); }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .form-group select,
+        body.dark-mode .form-group input {
+            background-color: #333;
+            color: white;
+        }
+
+        .form-group select:focus, .form-group input:focus {
+            outline: none;
+            box-shadow: 0 0 15px rgba(118, 75, 162, 0.5);
+        }
+
+        .form-group input[type="submit"] {
+            background-color: #667eea;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        body.dark-mode .form-group input[type="submit"] {
+            background-color: #ff5722;
+        }
+
+        .form-group input[type="submit"]:hover {
+            background-color: #764ba2;
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            document.body.classList.toggle('light-mode');
+        }
+
+        function updateEMIOptions() {
+            const nmi = document.getElementById("nmi").value;
+            const emi = document.getElementById("emi");
+
+            emi.innerHTML = '<option value="">Select EMI</option>';
+
+            let emiOptions = [];
+            if (nmi === "below_25k") {
+                emiOptions = [
+                    { value: "1000", text: " ₹1,000" },
+                    { value: "2500", text: " ₹2,500" },
+                    { value: "5000", text: "₹5,000" },
+                    { value: "10000", text: "₹10,000" }
+                ];
+            } else if (nmi === "25k_50k") {
+                emiOptions = [
+                    { value: "2500", text: " ₹2,500" },
+                    { value: "5000", text: "₹5,000" },
+                    { value: "10000", text: "₹10,000" }
+                ];
+            } else if (nmi === "50k_1lac") {
+                emiOptions = [
+                    { value: "5000", text: " ₹5,000" },
+                    { value: "7500", text: "₹7,500" },
+                    { value: "10000", text: "₹10,000" },
+                    { value: "20000", text: "₹20,000" },
+                    { value: "30000", text: "₹30,000" }
+                ];
+            } else if (nmi === "above_1lac") {
+                emiOptions = [
+                    { value: "5000", text: "₹5,000" },
+                    { value: "10000", text: "₹10,000" },
+                    { value: "20000", text: "₹20,000" },
+                    { value: "30000", text: "₹30,000" },
+                    { value: "50000", text: " ₹50,000" }
+                ];
+            }
+
+            emiOptions.forEach(option => {
+                const opt = document.createElement("option");
+                opt.value = option.value;
+                opt.text = option.text;
+                emi.appendChild(opt);
+            });
+        }
+
+        function updateLoanDetails() {
+            const emi = document.getElementById("emi").value;
+            const loanAmount = document.getElementById("loanAmount");
+            const tenure = document.getElementById("tenure");
+            const interest = document.getElementById("interest");
+
+            loanAmount.innerHTML = '<option value="">Select loan amount</option>';
+
+            let loanAmountOptions = [];
+            let calculatedTenure = 0;
+            let calculatedInterest = 0;
+
+            if (emi) {
+                loanAmountOptions = [
+                    { value: "100000", text: "₹1,00,000", tenure: 12, interest: 7 },
+                    { value: "500000", text: "₹5,00,000", tenure: 24, interest: 8 },
+                    { value: "1000000", text: "₹10,00,000", tenure: 36, interest: 9 },
+                    { value: "2000000", text: "₹20,00,000", tenure: 48, interest: 10 },
+                    { value: "3000000", text: " ₹30,00,000", tenure: 60, interest: 12 }
+                ];
+            }
+
+            loanAmountOptions.forEach(option => {
+                const opt = document.createElement("option");
+                opt.value = option.value;
+                opt.text = option.text;
+                opt.setAttribute("data-tenure", option.tenure);
+                opt.setAttribute("data-interest", option.interest);
+                loanAmount.appendChild(opt);
+            });
+
+            loanAmount.addEventListener('change', function () {
+                const selectedOption = loanAmount.options[loanAmount.selectedIndex];
+                calculatedTenure = selectedOption.getAttribute("data-tenure");
+                calculatedInterest = selectedOption.getAttribute("data-interest");
+
+                tenure.value = calculatedTenure + " months";
+                interest.value = calculatedInterest;
+            });
+        }
+    </script>
+</head>
+<body class="light-mode">
+    <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+    <div class="form-container">
+        <h2>Apply for a Loan</h2>
+        <form action="/apply-loan" method="POST">
+            <div class="form-group">
+                <label for="nmi">Net Monthly Income:</label>
+                <select id="nmi" name="nmi" required onchange="updateEMIOptions();">
+                    <option value="">Select your income range</option>
+                    <option value="below_25k">Below ₹25,000</option>
+                    <option value="25k_50k">₹25,000 - ₹50,000</option>
+                    <option value="50k_1lac">₹50,000 - ₹1,00,000</option>
+                    <option value="above_1lac">Above ₹1,00,000</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="emi">Proposed EMI:</label>
+                <select id="emi" name="emi" required onchange="updateLoanDetails();">
+                    <option value="">Select EMI</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="loanAmount">Loan Amount:</label>
+                <select id="loanAmount" name="loanAmount" required>
+                    <option value="">Select loan amount</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="tenure">Tenure:</label>
+                <input type="text" id="tenure" name="tenure" required readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="interest">Interest Rate:</label>
+                <input type="text" id="interest" name="interest" required readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="accountNumber">Select Account Number:</label>
+                <select id="accountNumber" name="accountNumber" required>
+                    <option value="">--Select Account--</option>
+                    <% if (accounts && accounts.length > 0) { %>
+                        <% accounts.forEach(function(account) { %>
+                            <option value="<%= account.Account_no %>"><%= account.Account_no %></option>
+                        <% }); %>
+                    <% } else { %>
+                        <option value="">No accounts available</option>
+                    <% } %>
+                </select>
+            </div>
+
+            <input type="submit" value="Submit Application">
+        </form>
+    </div>
+</body>
+</html>
